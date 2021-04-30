@@ -6,7 +6,7 @@
 
 
 INSTLOCATION="$(pwd)"
-DEVLOCATION="$HOME/dev/scripts"
+DEVLOCATION="$HOME/dev/up"
 
 function link () {
 	if [ -f "$DEVLOCATION/up" ]; then
@@ -38,7 +38,7 @@ function clean (){
 	sudo apt -y autoremove && sudo apt -y autoclean
 }
 
-function case_glenn (){
+function case_interact (){
 	case $glenn in
 		q)
 			exit 0
@@ -124,5 +124,5 @@ David Åkesson 2017-2021\n\
 	\t  reb \t reboot \n\
 	\t  sup \t Self update (git pull), quit\n"
 	read -p "(u/uu/d/c/r/pa/f/ph/l/q/reb/sup): " glenn
-case_glenn
+case_interact
 done
