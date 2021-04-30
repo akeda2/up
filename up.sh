@@ -105,7 +105,7 @@ while true; do
 	printf "_.-=*UP*=-._\n\
 Interactive update program for use with mobile devices\n\
 David Åkesson 2017-2021\n\
-	Type corresponding keywords to run:\n\
+\tType corresponding keywords to run:\n\
 	\tAPT: \n\
 	\t  u \t update \n\
 	\t  uu \t update & upgrade \n\
