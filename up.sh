@@ -84,8 +84,8 @@ function case_interact (){
 			;;
 		sup)
 			#Self update
-			if [ -d "$HOME/dev/scripts" ]; then
-				pushd "$HOME/dev/scripts"
+			if [ -d "$DEVLOCATION" ]; then
+				pushd "$DEVLOCATION"
 				git pull
 				popd
 				exit 0
