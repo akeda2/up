@@ -11,7 +11,7 @@ DEVLOCATION="$HOME/dev/up"
 function link () {
 	if [ -f "$DEVLOCATION/up" ]; then
 		if [ -f "/usr/local/bin/up" ]; then
-			rm "/usr/local/bin/up"
+			sudo rm "/usr/local/bin/up"
 		fi
 		sudo ln -s "$DEVLOCATION/up" /usr/local/bin/
 	fi
