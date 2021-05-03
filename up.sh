@@ -123,6 +123,6 @@ David Åkesson 2017-2021\n\
 	\t  q \t quit \n\
 	\t  reb \t reboot \n\
 	\t  sup \t Self update (git pull), quit\n"
-	read -p "(u/uu/d/c/r/pa/f/ph/l/q/reb/sup): " glenn
+	read -p "(u/uu/l/d/ud/c/r/pa/f/ph/L/q/reb/sup): " glenn
 case_interact
 done
