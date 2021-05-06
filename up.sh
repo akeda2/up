@@ -43,6 +43,9 @@ function case_interact (){
 		q)
 			exit 0
 			;;
+		qe)
+			kill -9 $PPID
+			;;
 		u)
 			update
 			;;
@@ -121,8 +124,9 @@ David Åkesson 2017-2021\n\
 	\t  ph \t PiHole-update \n\
 	\t  L \t link \n\
 	\t  q \t quit \n\
+	\t  qe \t quit and exit (kill) shell \n\
 	\t  reb \t reboot \n\
 	\t  sup \t Self update (git pull), quit\n"
-	read -p "(u/uu/l/d/ud/c/r/pa/f/ph/L/q/reb/sup): " glenn
+	read -p "(u/uu/l/d/ud/c/r/pa/f/ph/L/q/qe/reb/sup): " glenn
 case_interact
 done
