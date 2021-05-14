@@ -96,6 +96,9 @@ function case_interact (){
 				printf "\nNo dir found!\n"
 			fi
 			;;
+		shut)
+			sudo shutdown -Ph now
+			;;
 	esac
 }
 glenn="e"
@@ -126,6 +129,7 @@ David Åkesson 2017-2021\n\
 	\t  q \t quit \n\
 	\t  qe \t quit and exit (kill) shell \n\
 	\t  reb \t reboot \n\
+	\t  shut \t shutdown \n\
 	\t  sup \t Self update (git pull), quit\n"
 	read -p "(u/uu/l/d/ud/c/r/pa/f/ph/L/q/qe/reb/sup): " glenn
 case_interact
