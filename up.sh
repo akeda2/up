@@ -4,7 +4,7 @@
 
 #Install (git clone) in $HOME/dev/ (for example)
 
-VERSION=2021.20.137
+VERSION=2021.20.137-143811
 INSTLOCATION="/usr/local/bin/up"
 DEVLOCATION="$HOME/dev/up"
 
@@ -113,7 +113,7 @@ function case_interact (){
 		vp)
                         #Print version (date) to the file /usr/local/bin/up points to.
 			#Only do this if you really want to change the version number (before committing).
-                        UPVER="$(date +%Y.%V.%j)"
+                        UPVER="$(date +%Y.%V.%j-%H%M%S)"
 			vpPath="$(realpath "$0")"
                         if [ -f "$vpPath" ]; then
                                sudo sed -i "1,10 s/VERSION=.*/VERSION=$UPVER/" "$vpPath"
@@ -128,9 +128,7 @@ while true; do
 		break
 	fi
 
-	printf "$0"
-	printf "Version: $VERSION"
-	printf "_.-=*UP*=-._\n\
+	printf "_.-=*UP*=-._ $0 Version: $VERSION\n\
 Interactive update program for use with mobile devices\n\
 David Åkesson 2017-2021\n\
 \tType corresponding keywords to run:\n\
