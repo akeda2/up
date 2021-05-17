@@ -1,19 +1,27 @@
-#!/bin/bash
+#!/bin/bash -x
 #Interactive update program for use with mobile devices
 #David Åkesson 2017-2021
 
 #Install (git clone) in $HOME/dev/
 
-
-INSTLOCATION="$(pwd)"
+VERSION=
+INSTLOCATION="/usr/local/bin/up"
 DEVLOCATION="$HOME/dev/up"
 
-function link () {
+function link-old () {
 	if [ -f "$DEVLOCATION/up" ]; then
 		if [ -f "/usr/local/bin/up" ]; then
 			sudo rm "/usr/local/bin/up"
 		fi
 		sudo ln -s "$DEVLOCATION/up" /usr/local/bin/
+	fi
+}
+function link () {
+	if [ -f "$1" ]; then
+		if [ -f "$INSTLOCATION" ]; then
+			sudo rm "$INSTLOCATION"
+		fi
+		sudo ln -s "$1" "$INSTLOCATION"
 	fi
 }
 function list-upgradable () {
@@ -71,7 +79,8 @@ function case_interact (){
 			dist-upgrade && pi-upd
 			;;
 		L)
-			link
+			MYPATH=$(realpath $0)
+			link "$MYPATH"
 			;;
 		l)
 			list-upgradable
@@ -87,9 +96,11 @@ function case_interact (){
 			;;
 		sup)
 			#Self update
-			if [ -d "$DEVLOCATION" ]; then
-				pushd "$DEVLOCATION"
+			MYPATH="$(dirname $(realpath $0))"
+			if [ -d "$MYPATH" ]; then
+				pushd "$MYPATH"
 				git pull
+				pwd
 				popd
 				exit 0
 			else
@@ -98,6 +109,13 @@ function case_interact (){
 			;;
 		shut)
 			sudo shutdown -Ph now
+			;;
+		vp)
+                        #Print version (date) to this file
+                        UPVER="$(date +%Y.%V.%j)"
+                        if [ -f "/usr/local/bin/up" ]; then
+                               sudo sed -i "1,10 s/VERSION=.*/VERSION=$UPVER/" "/usr/local/bin/up"
+                        fi
 			;;
 	esac
 }
@@ -108,6 +126,8 @@ while true; do
 		break
 	fi
 
+	printf "$0"
+	printf "Version: $VERSION"
 	printf "_.-=*UP*=-._\n\
 Interactive update program for use with mobile devices\n\
 David Åkesson 2017-2021\n\
