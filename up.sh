@@ -1,10 +1,10 @@
-#!/bin/bash -x
+#!/bin/bash
 #Interactive update program for use with mobile devices
 #David Åkesson 2017-2021
 
-#Install (git clone) in $HOME/dev/
+#Install (git clone) in $HOME/dev/ (for example)
 
-VERSION=
+VERSION=2021.20.137
 INSTLOCATION="/usr/local/bin/up"
 DEVLOCATION="$HOME/dev/up"
 
@@ -111,10 +111,12 @@ function case_interact (){
 			sudo shutdown -Ph now
 			;;
 		vp)
-                        #Print version (date) to this file
+                        #Print version (date) to the file /usr/local/bin/up points to.
+			#Only do this if you really want to change the version number (before committing).
                         UPVER="$(date +%Y.%V.%j)"
-                        if [ -f "/usr/local/bin/up" ]; then
-                               sudo sed -i "1,10 s/VERSION=.*/VERSION=$UPVER/" "/usr/local/bin/up"
+			vpPath="$(realpath "$0")"
+                        if [ -f "$vpPath" ]; then
+                               sudo sed -i "1,10 s/VERSION=.*/VERSION=$UPVER/" "$vpPath"
                         fi
 			;;
 	esac
