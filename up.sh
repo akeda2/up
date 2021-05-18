@@ -156,7 +156,7 @@ while true; do
 	\t  d \t dist-upgrade \n\
 	\t  ud \t update & dist-upgrade \n\
 	\t  c \t autoremove & autoclean \n\
-	\t  a \t all (update,dist-upgrade,a-remove/clan) \n\
+	\t  a \t all (update,dist-upgrade,a-remove/clean) \n\
 	\tRPI: \n\
 	\t  r \t rpi-update \n\
 	\t  pa \t apt update, dist-upgrade & rpi-update \n\
@@ -164,7 +164,7 @@ while true; do
 	\t  f \t flatpak-update \n\
 	\t  ph \t PiHole-update \n\
 	\t  smb \t Samba service restart \n\
-	\t  L \t link \n\
+	\t  L \t Create symlink (/usr/local/bin/up) \n\
 	\t  q \t quit \n\
 	\t  qe \t quit and exit (kill) shell \n\
 	\t  reb \t reboot \n\
