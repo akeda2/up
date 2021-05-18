@@ -91,6 +91,11 @@ function case_interact (){
 		ph)
 			pihole-update
 			;;
+		smb)
+			if systemctl is-enabled smbd.service; then
+				sudo systemctl restart smbd.service
+			fi
+			;;
 		reb)
 			sudo reboot
 			;;
