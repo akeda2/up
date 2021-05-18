@@ -4,7 +4,7 @@
 
 #Install (git clone) in $HOME/dev/ (for example)
 
-VERSION=2021.20.138-112530
+VERSION=2021.20.138-140924
 INSTLOCATION="/usr/local/bin/up"
 
 #Old string variable used in function below.
@@ -56,6 +56,9 @@ function clean {
 #Main case
 function case_interact (){
 	case $glenn in
+		a)
+			update && list-upgradable && dist-upgrade && clean
+			;;
 		q)
 			exit 0
 			;;
@@ -143,9 +146,8 @@ while true; do
 		break
 	fi
 
-	printf "_.-=*UP*=-._ $0 Version: $VERSION\n\
-Interactive update program for use with mobile devices\n\
-David Åkesson 2017-2021\n\
+	printf "_.-=*UP*=-._ (c)David Åkesson 2017-21 - Version: $VERSION\n\
+	Cmdline: $0, Source: $(realpath "$0")\n\
 \tType corresponding keywords to run:\n\
 	\tAPT: \n\
 	\t  u \t update \n\
@@ -154,6 +156,7 @@ David Åkesson 2017-2021\n\
 	\t  d \t dist-upgrade \n\
 	\t  ud \t update & dist-upgrade \n\
 	\t  c \t autoremove & autoclean \n\
+	\t  a \t all (update,dist-upgrade,a-remove/clan) \n\
 	\tRPI: \n\
 	\t  r \t rpi-update \n\
 	\t  pa \t apt update, dist-upgrade & rpi-update \n\
@@ -167,6 +170,6 @@ David Åkesson 2017-2021\n\
 	\t  reb \t reboot \n\
 	\t  shut \t shutdown \n\
 	\t  sup \t Self update (git pull), quit\n"
-	read -p "(u/uu/l/d/ud/c/r/pa/f/ph/smb/L/q/qe/reb/sup): " glenn
+	read -p "(u/uu/l/d/ud/c/r/a/pa/f/ph/smb/L/q/qe/reb/sup): " glenn
 case_interact
 done
