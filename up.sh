@@ -4,11 +4,13 @@
 
 #Install (git clone) in $HOME/dev/ (for example)
 
-VERSION=2021.20.138-094452
+VERSION=2021.20.138-112530
 INSTLOCATION="/usr/local/bin/up"
-DEVLOCATION="$HOME/dev/up"
 
-function link-old () {
+#Old string variable used in function below.
+DEVLOCATION="$HOME/dev/up"
+function link-old {
+#Old linking function, do not use. Just here for reference.
 	if [ -f "$DEVLOCATION/up" ]; then
 		if [ -f "/usr/local/bin/up" ]; then
 			sudo rm "/usr/local/bin/up"
@@ -16,7 +18,9 @@ function link-old () {
 		sudo ln -s "$DEVLOCATION/up" /usr/local/bin/
 	fi
 }
-function link () {
+
+#New link function. This is used.
+function link {
 	if [ -f "$1" ]; then
 		if [ -f "$INSTLOCATION" ]; then
 			sudo rm "$INSTLOCATION"
@@ -24,28 +28,32 @@ function link () {
 		sudo ln -s "$1" "$INSTLOCATION"
 	fi
 }
-function list-upgradable () {
+
+#Various functions, this could just as well be done in the main case,
+#but this makes it a bit more flexible.
+function list-upgradable {
 	sudo apt list --upgradable
 }
-function pihole-update () {
+function pihole-update {
 	sudo pihole updatePihole
 }
-function update () {
+function update {
 	sudo apt update
 }
-function upgrade () {
+function upgrade {
 	sudo apt -y upgrade
 }
-function dist-upgrade () {
+function dist-upgrade {
 	sudo apt -y dist-upgrade
 }
-function rpi-upd (){
+function rpi-upd {
 	sudo rpi-update	
 }
-function clean (){
+function clean {
 	sudo apt -y autoremove && sudo apt -y autoclean
 }
 
+#Main case
 function case_interact (){
 	case $glenn in
 		q)
@@ -79,6 +87,7 @@ function case_interact (){
 			dist-upgrade && pi-upd
 			;;
 		L)
+			#Will run link function for making a symlink in /usr/local/bin
 			MYPATH=$(realpath $0)
 			link "$MYPATH"
 			;;
@@ -115,9 +124,10 @@ function case_interact (){
 		shut)
 			sudo shutdown -Ph now
 			;;
-		vp)
+		vprint)
                         #Print version (date) to the file /usr/local/bin/up points to.
 			#Only do this if you really want to change the version number (before committing).
+			#For obvious reasons, this is a hidden option.
                         UPVER="$(date +%Y.%V.%j-%H%M%S)"
 			vpPath="$(realpath "$0")"
                         if [ -f "$vpPath" ]; then
