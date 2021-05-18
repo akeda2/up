@@ -4,7 +4,7 @@
 
 #Install (git clone) in $HOME/dev/ (for example)
 
-VERSION=2021.20.138-090511
+VERSION=2021.20.138-091719
 INSTLOCATION="/usr/local/bin/up"
 DEVLOCATION="$HOME/dev/up"
 
@@ -150,12 +150,13 @@ David Åkesson 2017-2021\n\
 	\tMISC: \n\
 	\t  f \t flatpak-update \n\
 	\t  ph \t PiHole-update \n\
+	\t  smb \t Samba service restart \n\
 	\t  L \t link \n\
 	\t  q \t quit \n\
 	\t  qe \t quit and exit (kill) shell \n\
 	\t  reb \t reboot \n\
 	\t  shut \t shutdown \n\
 	\t  sup \t Self update (git pull), quit\n"
-	read -p "(u/uu/l/d/ud/c/r/pa/f/ph/L/q/qe/reb/sup): " glenn
+	read -p "(u/uu/l/d/ud/c/r/pa/f/ph/smb/L/q/qe/reb/sup): " glenn
 case_interact
 done
