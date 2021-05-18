@@ -1,10 +1,11 @@
 #!/bin/bash
 #Interactive update program for use with mobile devices
 #David Åkesson 2017-2021
+#https://github.com/akeda2/up.git
 
 #Install (git clone) in $HOME/dev/ (for example)
 
-VERSION=2021.20.138-140924
+VERSION=2021.20.138-145148
 INSTLOCATION="/usr/local/bin/up"
 
 #Old string variable used in function below.
