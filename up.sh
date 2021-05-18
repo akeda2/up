@@ -4,7 +4,7 @@
 
 #Install (git clone) in $HOME/dev/ (for example)
 
-VERSION=2021.20.137-143811
+VERSION=2021.20.138-090511
 INSTLOCATION="/usr/local/bin/up"
 DEVLOCATION="$HOME/dev/up"
 
