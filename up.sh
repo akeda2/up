@@ -142,6 +142,11 @@ function case_interact (){
 }
 glenn="e"
 
+if [ "$1" ]; then
+	glenn="$1"
+	case_interact
+	exit 0
+fi
 while true; do
 	if [ $glenn == "q" -a -n $glenn ]; then
 		break
