@@ -34,9 +34,9 @@ function cont {
 	read -p "Continue? " -n 1 -r
         echo    # (optional) move to a new line
         if [[ $REPLY =~ ^[Yy]$ ]]; then
-               	echo "0"
+               	return
         else
-		exit 1
+		false
 	fi
 }
 
