@@ -5,7 +5,7 @@
 
 #Install (git clone) in $HOME/dev/ (for example)
 
-VERSION=2021.20.138-145148
+VERSION=2021.42.297-130517
 INSTLOCATION="/usr/local/bin/up"
 
 #Old string variable used in function below.
@@ -61,6 +61,10 @@ function case_interact (){
 			update && list-upgradable && dist-upgrade && clean
 			;;
 		q)
+			exit 0
+			;;
+		qc)
+			clear
 			exit 0
 			;;
 		qe)
@@ -172,6 +176,7 @@ while true; do
 	\t  smb \t Samba service restart \n\
 	\t  L \t Create symlink (/usr/local/bin/up) \n\
 	\t  q \t quit \n\
+	\t  qc \t clear screen, then quit \n\
 	\t  qe \t quit and exit (kill) shell \n\
 	\t  reb \t reboot \n\
 	\t  shut \t shutdown \n\
