@@ -31,7 +31,7 @@ function link {
 }
 
 function cont {
-	read -p "Continue? " -n 1 -r
+	read -p "Continue? (y/n): " -n 1 -r
         echo    # (optional) move to a new line
         if [[ $REPLY =~ ^[Yy]$ ]]; then
                	return
