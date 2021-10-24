@@ -5,7 +5,7 @@
 
 #Install (git clone) in $HOME/dev/ (for example)
 
-VERSION=2021.42.297-130517
+VERSION=2021.42.297-153515
 INSTLOCATION="/usr/local/bin/up"
 
 #Old string variable used in function below.
@@ -27,6 +27,16 @@ function link {
 			sudo rm "$INSTLOCATION"
 		fi
 		sudo ln -s "$1" "$INSTLOCATION"
+	fi
+}
+
+function cont {
+	read -p "Continue? " -n 1 -r
+        echo    # (optional) move to a new line
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+               	echo "0"
+        else
+		exit 1
 	fi
 }
 
@@ -58,7 +68,10 @@ function clean {
 function case_interact (){
 	case $glenn in
 		a)
-			update && list-upgradable && dist-upgrade && clean
+			update && list-upgradable && cont && dist-upgrade && clean
+			;;
+		aa)
+			update && dist-upgrade && clean
 			;;
 		q)
 			exit 0
@@ -166,7 +179,8 @@ while true; do
 	\t  d \t dist-upgrade \n\
 	\t  ud \t update & dist-upgrade \n\
 	\t  c \t autoremove & autoclean \n\
-	\t  a \t all (update,dist-upgrade,a-remove/clean) \n\
+        \t  a \t all, but ask before upgrading \n\
+	\t  aa \t all/auto (update,dist-upgrade,auto-remove/clean) \n\
 	\tRPI: \n\
 	\t  r \t rpi-update \n\
 	\t  pa \t apt update, dist-upgrade & rpi-update \n\
