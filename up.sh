@@ -5,7 +5,7 @@
 
 #Install (git clone) in $HOME/dev/ (for example)
 
-VERSION=2021.42.297-153515
+VERSION=2021.46.321-190010
 INSTLOCATION="/usr/local/bin/up"
 
 #Old string variable used in function below.
@@ -63,7 +63,9 @@ function rpi-upd {
 function clean {
 	sudo apt -y autoremove && sudo apt -y autoclean
 }
-
+function pamac-upgrade {
+	pamac upgrade
+}
 #Main case
 function case_interact (){
 	case $glenn in
@@ -106,6 +108,9 @@ function case_interact (){
 			;;
 		pa)
 			dist-upgrade && pi-upd
+			;;
+		pama*)
+			pamac-upgrade
 			;;
 		L)
 			#Will run link function for making a symlink in /usr/local/bin
@@ -185,6 +190,7 @@ while true; do
 	\t  r \t rpi-update \n\
 	\t  pa \t apt update, dist-upgrade & rpi-update \n\
 	\tMISC: \n\
+	\t  pamac \t pamac upgrade \n\
 	\t  f \t flatpak-update \n\
 	\t  ph \t PiHole-update \n\
 	\t  smb \t Samba service restart \n\
