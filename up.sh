@@ -190,7 +190,7 @@ while true; do
 	\t  r \t rpi-update \n\
 	\t  pa \t apt update, dist-upgrade & rpi-update \n\
 	\tMISC: \n\
-	\t  pamac \t pamac upgrade \n\
+	\t  pamac  pamac upgrade \n\
 	\t  f \t flatpak-update \n\
 	\t  ph \t PiHole-update \n\
 	\t  smb \t Samba service restart \n\
