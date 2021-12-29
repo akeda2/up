@@ -5,7 +5,7 @@
 
 #Install (git clone) in $HOME/dev/ (for example)
 
-VERSION=2021.46.321-190010
+VERSION=2021.52.363-161538
 INSTLOCATION="/usr/local/bin/up"
 
 #Old string variable used in function below.
@@ -63,17 +63,14 @@ function rpi-upd {
 function clean {
 	sudo apt -y autoremove && sudo apt -y autoclean
 }
-function pamac-upgrade {
-	pamac upgrade
-}
 #Main case
 function case_interact (){
 	case $glenn in
 		a)
-			update && list-upgradable && cont && dist-upgrade && clean
+			command -v apt && update && list-upgradable && cont && dist-upgrade && clean
 			;;
 		aa)
-			update && dist-upgrade && clean
+			command -v apt && update && dist-upgrade && clean
 			;;
 		q)
 			exit 0
@@ -86,31 +83,32 @@ function case_interact (){
 			kill -9 $PPID
 			;;
 		u)
-			update
+			command -v apt && update
 			;;
 		uu)
-			update && upgrade
+			command -v apt && update && upgrade
 			;;
 		d)
-			dist-upgrade
+			command -v apt && dist-upgrade
 			;;
 		ud)
-			update && dist-upgrade
+			command -v apt && update && dist-upgrade
 			;;
 		r)
-			rpi-upd
+			command -v rpi-update && rpi-upd
 			;;
 		c)
-			clean
+			command -v apt && clean
 			;;
 		a)
-			dist-upgrade
+			command -v apt && dist-upgrade
 			;;
 		pa)
-			dist-upgrade && pi-upd
+			command -v apt && dist-upgrade
+			command -v rpi-update && pi-upd
 			;;
 		pama*)
-			pamac-upgrade
+			command -v pamac && pamac upgrade
 			;;
 		L)
 			#Will run link function for making a symlink in /usr/local/bin
@@ -118,13 +116,13 @@ function case_interact (){
 			link "$MYPATH"
 			;;
 		l)
-			list-upgradable
+			command -v apt && list-upgradable
 			;;
 		f)
-			flatpak update
+			command -v flatpak && flatpak update
 			;;
 		ph)
-			pihole-update
+			command -v pihole && pihole-update
 			;;
 		smb)
 			if systemctl is-enabled smbd.service; then
