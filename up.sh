@@ -5,7 +5,7 @@
 
 #Install (git clone) in $HOME/dev/ (for example)
 
-VERSION=2021.52.363-161538
+VERSION=2022-02-24.v08.d055-1645716579-162939
 INSTLOCATION="/usr/local/bin/up"
 
 #Old string variable used in function below.
@@ -121,6 +121,9 @@ function case_interact (){
 		f)
 			command -v flatpak && flatpak update
 			;;
+		sn*)
+			command -v snap && sudo snap refresh
+			;;
 		ph)
 			command -v pihole && pihole-update
 			;;
@@ -152,7 +155,7 @@ function case_interact (){
                         #Print version (date) to the file /usr/local/bin/up points to.
 			#Only do this if you really want to change the version number (before committing).
 			#For obvious reasons, this is a hidden option.
-                        UPVER="$(date +%Y.%V.%j-%H%M%S)"
+                        UPVER="$(date +%Y-%m-%d.v%V.d%j-%s-%H%M%S)"
 			vpPath="$(realpath "$0")"
                         if [ -f "$vpPath" ]; then
                                sudo sed -i "1,10 s/VERSION=.*/VERSION=$UPVER/" "$vpPath"
@@ -188,6 +191,7 @@ while true; do
 	\t  r \t rpi-update \n\
 	\t  pa \t apt update, dist-upgrade & rpi-update \n\
 	\tMISC: \n\
+	\t  snap   snap refresh \n\
 	\t  pamac  pamac upgrade \n\
 	\t  f \t flatpak-update \n\
 	\t  ph \t PiHole-update \n\
