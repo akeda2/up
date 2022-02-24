@@ -203,6 +203,6 @@ while true; do
 	\t  reb \t reboot \n\
 	\t  shut \t shutdown \n\
 	\t  sup \t Self update (git pull), quit\n"
-	read -p "(u/uu/l/d/ud/c/r/a/pa/f/ph/smb/L/q/qe/reb/sup): " glenn
+	read -p "(u/uu/l/d/ud/c/r/a/pa/snap/f/ph/smb/L/q/qe/reb/sup): " glenn
 case_interact
 done
