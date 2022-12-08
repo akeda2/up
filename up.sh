@@ -5,7 +5,7 @@
 
 #Install (git clone) in $HOME/dev/ (for example)
 
-VERSION=2022-02-24.v08.d055-1645716579-162939
+VERSION=2022-12-08.v49.d342-1670491948-103228
 INSTLOCATION="/usr/local/bin/up"
 
 #Old string variable used in function below.
@@ -203,6 +203,6 @@ while true; do
 	\t  reb \t reboot \n\
 	\t  shut \t shutdown \n\
 	\t  sup \t Self update (git pull), quit\n"
-	read -p "(u/uu/l/d/ud/c/r/a/pa/snap/f/ph/smb/L/q/qe/reb/sup): " glenn
+	read -p ": " glenn
 case_interact
 done
