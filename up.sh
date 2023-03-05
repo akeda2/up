@@ -100,9 +100,6 @@ function case_interact (){
 		c)
 			command -v apt && clean
 			;;
-		a)
-			command -v apt && dist-upgrade
-			;;
 		pa)
 			command -v apt && dist-upgrade
 			command -v rpi-update && pi-upd
@@ -119,6 +116,10 @@ function case_interact (){
 			command -v apt && list-upgradable
 			;;
 		f)
+			command -v flatpak && flatpak update
+			;;
+		ff)
+			command -v flatpak && sudo flatpak update
 			command -v flatpak && flatpak update
 			;;
 		sn*)
