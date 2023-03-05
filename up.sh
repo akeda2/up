@@ -5,7 +5,7 @@
 
 #Install (git clone) in $HOME/dev/ (for example)
 
-VERSION=2022-12-08.v49.d342-1670491948-103228
+VERSION=2023-03-05.v09.d064-1678019325-132845
 INSTLOCATION="/usr/local/bin/up"
 
 #Old string variable used in function below.
@@ -176,7 +176,7 @@ while true; do
 		break
 	fi
 
-	printf "_.-=*UP*=-._ (c)David Åkesson 2017-21 - Version: $VERSION\n\
+	printf "_.-=*UP*=-._ (c)David Åkesson 2017-23 - Version: $VERSION\n\
 	Cmdline: $0, Source: $(realpath "$0")\n\
 \tType corresponding keywords to run:\n\
 	\tAPT: \n\
@@ -195,6 +195,7 @@ while true; do
 	\t  snap   snap refresh \n\
 	\t  pamac  pamac upgrade \n\
 	\t  f \t flatpak-update \n\
+	\t  ff\t f with sudo, then without \n\
 	\t  ph \t PiHole-update \n\
 	\t  smb \t Samba service restart \n\
 	\t  L \t Create symlink (/usr/local/bin/up) \n\
