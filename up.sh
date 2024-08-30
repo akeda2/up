@@ -5,7 +5,7 @@
 
 # Install (git clone) in $HOME/dev/ (for example)
 
-VERSION=2024-08-30.v35.d243-1725006223-102343
+VERSION=2024-08-30.v35.d243-1725007371-104251
 INSTLOCATION="/usr/local/bin/up"
 
 #Old string variable used in function below.
@@ -51,8 +51,8 @@ make_backup() {
 }
 function cont {
 	# Should we continue? Supply a string to be printed, or use default.
-    local ASK="${1:-Continue? (y/n): }"
-    [[ -z $1 ]] && ASK="Continue? (y/n): " || ASK="$1"
+    local ASK="${1:-Continue?}"
+    #[[ -z $1 ]] && ASK="Continue? (y/n): " || ASK="$1"
 	read -p "$ASK (y/n): " -n 1 -r
         echo    # (optional) move to a new line
         if [[ $REPLY =~ ^[Yy]$ ]]; then
