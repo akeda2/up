@@ -5,7 +5,7 @@
 
 # Install (git clone) in $HOME/dev/ (for example)
 
-VERSION=2024-08-30.v35.d243-1725007371-104251
+VERSION=2024-08-30.v35.d243-1725025080-153800
 INSTLOCATION="/usr/local/bin/up"
 
 #Old string variable used in function below.
@@ -23,8 +23,8 @@ function link-old {
 #New link function. This is used.
 function link {
 	if [ -f "$1" ]; then
-		[ -f "$INSTLOCATION" ] && sudo rm "$INSTLOCATION"
-		sudo ln -s "$1" "$INSTLOCATION"
+		#[ -f "$INSTLOCATION" ] && sudo rm "$INSTLOCATION"
+		sudo ln -sf "$1" "$INSTLOCATION"
 	fi
 }
 areweroot() {
@@ -36,12 +36,7 @@ areweroot() {
 }
 installToUsrLocalBin() {
     # Installs the script to /usr/local/bin
-    if [ -f "$1" ]; then
-        #if [ -f "$INSTLOCATION" ]; then
-        #    sudo rm "$INSTLOCATION"
-        #fi
-        sudo install -m 755 "$1" "$INSTLOCATION"
-    fi
+    [[ -f "$1" ]] && sudo install -m 755 "$1" "$INSTLOCATION"
 }
 make_backup() {
     # Copies the file to /tmp with a .bak extension
