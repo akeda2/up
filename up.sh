@@ -97,7 +97,7 @@ function clean {
 function case_interact (){
 	case $glenn in
 		a)
-			command -v apt && update && list-upgradable && cont && upgrade && clean && check-reboot-print
+			command -v apt && update && list-upgradable && cont "Upgrade?" && upgrade && clean && check-reboot-print
 			;;
 		aa)
 			command -v apt && update && upgrade && clean && check-reboot-print
@@ -191,7 +191,7 @@ function case_interact (){
 			cont "Really shutdown?!" && sudo shutdown -Ph now
 			;;
 		vprint)
-                        #Print version (date) to the file /usr/local/bin/up points to.
+            #Print version (date) to the file /usr/local/bin/up points to.
 			#Only do this if you really want to change the version number (before committing).
 			#For obvious reasons, this is a hidden option.
             UPVER="$(date +%Y-%m-%d.v%V.d%j-%s-%H%M%S)"
