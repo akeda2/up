@@ -1,11 +1,11 @@
 #!/bin/bash
-#Interactive update program for use with mobile devices
-#David Åkesson 2017-2021
-#https://github.com/akeda2/up.git
+# Interactive update program for use with mobile devices
+# David Åkesson 2017-2024
+# https://github.com/akeda2/up.git
 
-#Install (git clone) in $HOME/dev/ (for example)
+# Install (git clone) in $HOME/dev/ (for example)
 
-VERSION=2023-03-05.v09.d064-1678019325-132845
+VERSION=2024-08-30.v35.d243-1725006223-102343
 INSTLOCATION="/usr/local/bin/up"
 
 #Old string variable used in function below.
@@ -23,21 +23,51 @@ function link-old {
 #New link function. This is used.
 function link {
 	if [ -f "$1" ]; then
-		if [ -f "$INSTLOCATION" ]; then
-			sudo rm "$INSTLOCATION"
-		fi
+		[ -f "$INSTLOCATION" ] && sudo rm "$INSTLOCATION"
 		sudo ln -s "$1" "$INSTLOCATION"
 	fi
 }
-
+areweroot() {
+    # Check if we are running as root/sudo
+    if [ "$EUID" -ne 0 ]; then
+        echo "This script must be run as root or with sudo."
+        exit 1
+    fi
+}
+installToUsrLocalBin() {
+    # Installs the script to /usr/local/bin
+    if [ -f "$1" ]; then
+        #if [ -f "$INSTLOCATION" ]; then
+        #    sudo rm "$INSTLOCATION"
+        #fi
+        sudo install -m 755 "$1" "$INSTLOCATION"
+    fi
+}
+make_backup() {
+    # Copies the file to /tmp with a .bak extension
+    if [ -f "$1" ]; then
+        cp -a --remove-destination "$1" /tmp/"$(basename "$1")".bak
+    fi
+}
 function cont {
-	read -p "Continue? (y/n): " -n 1 -r
+	# Should we continue? Supply a string to be printed, or use default.
+    local ASK="${1:-Continue? (y/n): }"
+    [[ -z $1 ]] && ASK="Continue? (y/n): " || ASK="$1"
+	read -p "$ASK (y/n): " -n 1 -r
         echo    # (optional) move to a new line
         if [[ $REPLY =~ ^[Yy]$ ]]; then
                	return
         else
-		false
-	fi
+			false
+		fi
+}
+check_reboot() {
+    # Checks for /var/run/reboot-required
+    [[ -f /var/run/reboot-required ]] && return || false
+}
+check-reboot-print() {
+	# Checks for /var/run/reboot-required
+	check_reboot && echo "Reboot required!" || echo "No reboot required"
 }
 
 #Various functions, this could just as well be done in the main case,
@@ -67,10 +97,10 @@ function clean {
 function case_interact (){
 	case $glenn in
 		a)
-			command -v apt && update && list-upgradable && cont && dist-upgrade && clean
+			command -v apt && update && list-upgradable && cont && upgrade && clean && check-reboot-print
 			;;
 		aa)
-			command -v apt && update && dist-upgrade && clean
+			command -v apt && update && upgrade && clean && check-reboot-print
 			;;
 		q)
 			exit 0
@@ -86,13 +116,13 @@ function case_interact (){
 			command -v apt && update
 			;;
 		uu)
-			command -v apt && update && upgrade
+			command -v apt && update && upgrade && check-reboot-print
 			;;
 		d)
-			command -v apt && dist-upgrade
+			command -v apt && dist-upgrade && check-reboot-print
 			;;
 		ud)
-			command -v apt && update && dist-upgrade
+			command -v apt && update && dist-upgrade && check-reboot-print
 			;;
 		r)
 			command -v rpi-update && rpi-upd
@@ -112,6 +142,11 @@ function case_interact (){
 			MYPATH=$(realpath $0)
 			link "$MYPATH"
 			;;
+		I)
+            # Will run installToUsrLocalBin function for installing the script to /usr/local/bin
+            MYPATH=$(realpath $0)
+            installToUsrLocalBin "$MYPATH"
+            ;;
 		l)
 			command -v apt && list-upgradable
 			;;
@@ -119,8 +154,7 @@ function case_interact (){
 			command -v flatpak && flatpak update
 			;;
 		ff)
-			command -v flatpak && sudo flatpak update
-			command -v flatpak && flatpak update
+			command -v flatpak && sudo flatpak update && flatpak update
 			;;
 		sn*)
 			command -v snap && sudo snap refresh
@@ -133,8 +167,12 @@ function case_interact (){
 				sudo systemctl restart smbd.service
 			fi
 			;;
+		rr)
+            # Checks for reboot-required
+            check-reboot-print
+            ;;
 		reb)
-			sudo reboot
+			cont "Really reboot?" && sudo reboot
 			;;
 		sup)
 			#Self update
@@ -150,17 +188,17 @@ function case_interact (){
 			fi
 			;;
 		shut)
-			sudo shutdown -Ph now
+			cont "Really shutdown?!" && sudo shutdown -Ph now
 			;;
 		vprint)
                         #Print version (date) to the file /usr/local/bin/up points to.
 			#Only do this if you really want to change the version number (before committing).
 			#For obvious reasons, this is a hidden option.
-                        UPVER="$(date +%Y-%m-%d.v%V.d%j-%s-%H%M%S)"
+            UPVER="$(date +%Y-%m-%d.v%V.d%j-%s-%H%M%S)"
 			vpPath="$(realpath "$0")"
-                        if [ -f "$vpPath" ]; then
-                               sudo sed -i "1,10 s/VERSION=.*/VERSION=$UPVER/" "$vpPath"
-                        fi
+            if [ -f "$vpPath" ]; then
+                sudo sed -i "1,10 s/VERSION=.*/VERSION=$UPVER/" "$vpPath"
+            fi
 			;;
 	esac
 }
@@ -199,6 +237,7 @@ while true; do
 	\t  ph \t PiHole-update \n\
 	\t  smb \t Samba service restart \n\
 	\t  L \t Create symlink (/usr/local/bin/up) \n\
+	\t  rr \t Check for reboot-required \n\
 	\t  q \t quit \n\
 	\t  qc \t clear screen, then quit \n\
 	\t  qe \t quit and exit (kill) shell \n\
