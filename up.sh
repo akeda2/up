@@ -62,7 +62,7 @@ check_reboot() {
 }
 check-reboot-print() {
 	# Checks for /var/run/reboot-required
-	check_reboot && echo "Reboot required!" || echo "No reboot required"
+	check_reboot && printf "\n\rReboot required!\n\n" || printf "\n\tNo reboot required\n\n"
 }
 
 #Various functions, this could just as well be done in the main case,
