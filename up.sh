@@ -5,7 +5,7 @@
 
 # Install (git clone) in $HOME/dev/ (for example)
 
-VERSION=2024-08-30.v35.d243-1725025080-153800
+VERSION=2024-08-31.v35.d244-1725117239-171359
 INSTLOCATION="/usr/local/bin/up"
 
 #Old string variable used in function below.
